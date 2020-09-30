@@ -1,0 +1,25 @@
+<?php include 'layout/header.phtml' ?>
+
+<form method="post" action="/user/registerSubmit">
+    <div class="field">
+        <label class="label" for="first_name">First Name</label>
+        <input class="input" type="text" class="form-control" id="first_name" name="first_name">
+        <label class="label" for="last_name">Last Name</label>
+        <input class="input" type="text" class="form-control" id="last_name" name="last_name">
+        <label class="label" for="email">Email</label>
+        <input class="input" type="email" class="form-control" id="email" name="email">
+        <label class="label" for="password">Password</label>
+        <input class="input" type="password" class="form-control" id="password" name="password">
+        <label class="label" for="confirm_password">Confirm Password</label>
+        <input class="input" type="password" class="form-control" id="confirm_password" name="confirm_password">
+        <p class="label">Select what type of user you are: </p>
+        <label class="radio" for="user_type-viewer">Viewer
+        <input type="radio" class="radio" id="user_type" name="user_type" value="1">
+        </label>
+        <label class="radio" for="user_type_reviewer">Reviewer
+        <input type="radio" class="radio" id="user_type" name="user_type" value="2">
+        </label><br>
+    <button type="submit" class="button is-primary">Register</button>
+    </div>
+</form>
+<?php include 'layout/footer.phtml' ?>

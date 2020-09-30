@@ -1,0 +1,21 @@
+<?php include 'layout/header.phtml' ?>
+<div class="section">
+    <h1 class="title">Your account</h1>
+    <p class="subtitle">Name: <?= $currentUser->getFirstName() ?><?= $currentUser->getLastName() ?></p>
+
+    <p class="subtitle">Email:  <?= $currentUser->getEmail() ?></p>
+
+</div>
+<div class="section">
+    <form class="field" action="account" method="post">
+        <label class="label" for="pass">Enter your password: </label>
+        <input class="input" type="password" id="pass" name="pass" required>
+        <label class="label" for="new_pass">Enter your new password: </label>
+        <input class="input" type="password" id="new_pass" name="new_pass" required>
+        <label class="label" for="confirm_new_pass">Confirm your new password: </label>
+        <input class="input" type="password" id="confirm_new_pass" name="confirm_new_pass" required>
+        <input type="hidden" value="<?=$currentUser->getId() ?>" name="id">
+        <input class="button" type="submit" value="Update">
+    </form>
+</div>
+<?php include 'layout/footer.phtml' ?>
