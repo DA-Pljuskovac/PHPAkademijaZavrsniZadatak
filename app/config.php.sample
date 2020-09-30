@@ -2,8 +2,8 @@
 
 return [
     'db' => [
-        'host' => 'db',
-        'name' => 'social_network',
+        'host' => '',
+        'name' => '',
         'user' => '',
         'password' => ''
     ]
