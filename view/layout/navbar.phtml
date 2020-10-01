@@ -1,20 +1,20 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-menu" id="navbarNav">
         <div class="navbar-start">
-                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/~polaznik13/">Home</a>
 
-            <form class="navbar-item" action="search" method="post">
+            <form class="navbar-item" action="/~polaznik13/search" method="post">
                 <input class="navbar-item" type="number" name="search" id="search">
                 <input class="button" type="submit">
             </form>
         </div>
         <div class="navbar-end">
             <?php if ($currentUser === null): ?>
-                <a class="navbar-item " href="/user/login">Login</a>
-                <a class="navbar-item" href="/user/register">Register</a>
+                <a class="navbar-item " href="/~polaznik13/user/login">Login</a>
+                <a class="navbar-item" href="/~polaznik13/user/register">Register</a>
             <?php else: ?>
-                <a class="navbar-item" href="/user/logout">Logout</a>
-                <a class="navbar-item " href="/user/account">Account</a>
+                <a class="navbar-item" href="/~polaznik13/user/logout">Logout</a>
+                <a class="navbar-item " href="/~polaznik13/user/account">Account</a>
             <?php endif; ?>
         </div>
     </div>

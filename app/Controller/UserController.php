@@ -12,7 +12,7 @@ class UserController extends AbstractController
             return $this->view->render('login');
         }
 
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
 
     public function registerAction()
@@ -21,27 +21,27 @@ class UserController extends AbstractController
             return $this->view->render('register');
         }
 
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
 
     public function registerSubmitAction()
     {
         if (!$this->isPost()) {
             // only POST requests are allowed
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
         $requiredKeys = ['first_name', 'last_name', 'email', 'password', 'confirm_password'];
         if (!$this->validateData($_POST, $requiredKeys)) {
             // set error message
-            header('Location: /user/register');
+            header('Location: /~polaznik13/user/register');
             return;
         }
 
         if ($_POST['password'] !== $_POST['confirm_password']) {
             // set error message
-            header('Location: /user/register');
+            header('Location: /~polaznik13/user/register');
             return;
         }
 
@@ -49,7 +49,7 @@ class UserController extends AbstractController
 
         if ($user->getId()) {
             // user already exists
-            header('Location: /user/register');
+            header('Location: /~polaznik13/user/register');
             return;
         }
         User::insert([
@@ -60,21 +60,21 @@ class UserController extends AbstractController
             'user_type'=>$_POST['user_type'],
         ]);
 
-        header('Location: /user/login');
+        header('Location: /~polaznik13/user/login');
     }
 
     public function loginSubmitAction()
     {
         // only POST requests are allowed
         if (!$this->isPost() || $this->auth->isLoggedIn()) {
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
         $requiredKeys = ['email', 'password'];
         if (!$this->validateData($_POST, $requiredKeys)) {
             // set error message
-            header('Location: /user/login');
+            header('Location: /~polaznik13/user/login');
             return;
         }
 
@@ -82,12 +82,12 @@ class UserController extends AbstractController
 
         if (!$user->getId() || !password_verify($_POST['password'], $user->getPassword()) || !$user->getUserType()===3) {
             // set error message
-            header('Location: /user/login');
+            header('Location: /~polaznik13/user/login');
             return;
         }
 
         $this->auth->login($user);
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
 
     protected function validateData(array $data, array $keys): bool
@@ -107,7 +107,7 @@ class UserController extends AbstractController
             $this->auth->logout();
         }
 
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
     public function accountAction()
     {

@@ -35,7 +35,7 @@ class ReviewController extends AbstractController
             'rev_up'=>0,
             'rev_down'=>0,
         ]);
-        header("Location: /review/details?id={$_POST['mov_id']}");
+        header("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
 
     public function deleteAction()

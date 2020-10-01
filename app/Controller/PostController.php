@@ -11,7 +11,7 @@ class PostController extends AbstractController
     public function createAction()
     {
         if (!$this->isPost() || !$this->auth->isLoggedIn()) {
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
@@ -19,10 +19,10 @@ class PostController extends AbstractController
 
         if (!$postContent) {
             // set error message
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
 }
