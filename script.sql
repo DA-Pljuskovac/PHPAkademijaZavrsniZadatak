@@ -1,8 +1,4 @@
-DROP DATABASE IF EXISTS movies;
-CREATE DATABASE movies CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-USE movies;
-
+USE polaznik13;
 create table `user` (
     id int not null primary key auto_increment,
     first_name varchar (50) not null,
