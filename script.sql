@@ -53,13 +53,29 @@ create table review(
     rev_mov_id int not null,
     rev_up int,
     rev_down int,
-    foreign key (rev_mov_id) references movie(mov_id)
+    user_type tinyint,
+    user_id int,
+    foreign key (rev_mov_id) references movie(mov_id),
+    foreign key (user_id) references user(id)
 );
 
+create table has_voted(
+    user_id int,
+    mov_id int,
+    rev_id int,
+    voted int,
+    foreign key (user_id) references user(id),
+    foreign key (rev_id) references review(rev_id),
+    foreign key (mov_id) references movie(mov_id)
+);
 
-
-
-
+create table movie_watchlist(
+    user_id int,
+    mov_id int,
+    mov_title varchar(255),
+    foreign key (user_id) references user(id),
+    foreign key (mov_id) references movie(mov_id)
+);
 
 /* movies */
 insert into movie values
@@ -194,4 +210,4 @@ insert into movie_genres values
 (9,'Sci-fi'),
 (9,'Thriller');
 
-insert into user values (1,'Domagoj-Antonio','Pljuskovac','pljuskovac.domagojantonio@gmail.com','1515',3);
+insert into user values (1,'Domagoj-Antonio','Pljuskovac','pljuskovac.domagojantonio@gmail.com','1111155555',3);

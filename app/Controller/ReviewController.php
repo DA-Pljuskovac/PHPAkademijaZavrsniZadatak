@@ -11,12 +11,14 @@ use App\Model\Up;
 use App\Model\Down;
 use App\Model\Director;
 use App\Model\Genres;
+use App\Model\Voted;
+use App\Model\Watchlist;
 class ReviewController extends AbstractController
 {
     public function createAction()
     {
         if (!$this->isPost() || !$this->auth->isLoggedIn()) {
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
@@ -24,7 +26,12 @@ class ReviewController extends AbstractController
 
         if (!$postContent) {
             // set error message
-            header('Location: /');
+            header('Location: /~polaznik13/');
+            return;
+        }
+        if($this->auth->getCurrentUser()->getId()==Review::getOne('user_id',$this->auth->getCurrentUser()->getId()))
+        {
+            header('Location: /~polaznik13/');
             return;
         }
         Review::insert([
@@ -34,6 +41,14 @@ class ReviewController extends AbstractController
             'rev_score'=>$_POST['review_rating'],
             'rev_up'=>0,
             'rev_down'=>0,
+            'user_type'=>$this->auth->getCurrentUser()->getUser_type(),
+            'user_id'=>$this->auth->getCurrentUser()->getId()
+        ]);
+        Voted::insert([
+            'rev_id'=>$_POST['rev_id'],
+            'user_id'=>$this->auth->getCurrentUser()->getId(),
+            'mov_id'=>$_POST['mov_id'],
+            'voted'=>1
         ]);
         header("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
@@ -42,46 +57,79 @@ class ReviewController extends AbstractController
     {
         $postId = $_GET['id'] ?? null;
         if (!$postId || !$this->auth->isLoggedIn()) {
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
 
-        $post = Review::getOne('id', $postId);
+        $post = Review::getOne('rev_id', $postId);
 
-        if ($post->getUserId() == $this->auth->getCurrentUser()->getId()) {
-            Review::delete('id', $postId);
+        if ($post->getUser_id() == $this->auth->getCurrentUser()->getId()) {
+            Review::delete('rev_id', $postId);
         }
 
-        header('Location: /');
+        header('Location: /~polaznik13/');
     }
     public function detailsAction()
     {
         $postId=$_GET['id'] ?? null;
         if( !$postId){
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
-        return $this->view->render('details',['movie'=>Post::getOne('mov_id',$postId),'review'=>Review::getMultiple('rev_mov_id',$postId),'actor'=>Moviecast::getMultiple('mov_id',$postId),'director'=>Director::getMultiple('mov_id',$postId),'movie_genres'=>Genres::getMultiple('mov_id',$postId)]);
+        return $this->view->render('details',['movie'=>Post::getOne('mov_id',$postId),'review'=>Review::getMultiple('rev_mov_id',$postId),'actor'=>Moviecast::getMultiple('mov_id',$postId),'director'=>Director::getMultiple('mov_id',$postId),'movie_genres'=>Genres::getMultiple('mov_id',$postId),'has_voted'=>Voted::getMultiple('mov_id',$postId)]);
     }
     public function upAction()
     {
         $postId=$_POST['id'] ?? null;
         if (!$postId){
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
         Up::up('rev_up',$postId,1);
-        header ("Location: /review/details?id={$_POST['mov_id']}");
+        Voted::change('voted',$postId,1);
+        Voted::change('rev_id',$postId,$_POST['rev_id']);
+        header ("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
     public function downAction()
     {
         $postId=$_POST['id'] ?? null;
         if (!$postId){
-            header('Location: /');
+            header('Location: /~polaznik13/');
             return;
         }
         Down::down('rev_down',$postId,1);
-        header ("Location: /review/details?id={$_POST['mov_id']}");
+        Voted::change('voted',$postId,2);
+        Voted::change('rev_id',$postId,$_POST['rev_id']);
+        header ("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
+    public function addToAction()
+    {
+        $postId=$_POST['id'] ?? null;
+        if(!$postId){
+            header('Location: /~polaznik13/');
+            return;
+        }
+        Watchlist::insert([
+           'user_id'=>$this->auth->getCurrentUser()->getId(),
+            'mov_id'=>$_POST['mov_id'],
+            'mov_title'=>$_POST['mov_title'],
+        ]);
+        header("Location: /~polaznik13/user/account");
+    }
+    public function deleteFromAction()
+    {
+        $postId = $_GET['id'] ?? null;
+        if (!$postId || !$this->auth->isLoggedIn()) {
+            header('Location: /~polaznik13/');
+            return;
+        }
 
+        $post = Watchlist::getOne('mov_id', $postId);
+
+        if ($post->getUser_id() == $this->auth->getCurrentUser()->getId()) {
+            Watchlist::delete('mov_id', $postId);
+        }
+
+        header('Location: /~polaznik13/');
+    }
 }

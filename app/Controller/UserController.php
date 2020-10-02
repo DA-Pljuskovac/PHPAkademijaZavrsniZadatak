@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\User;
+use App\Model\Watchlist;
 
 class UserController extends AbstractController
 {
@@ -74,18 +75,18 @@ class UserController extends AbstractController
         $requiredKeys = ['email', 'password'];
         if (!$this->validateData($_POST, $requiredKeys)) {
             // set error message
+
             header('Location: /~polaznik13/user/login');
             return;
         }
 
         $user = User::getOne('email', $_POST['email']);
 
-        if (!$user->getId() || !password_verify($_POST['password'], $user->getPassword()) || !$user->getUserType()===3) {
+        if (!$user->getId() || !password_verify($_POST['password'], $user->getPassword())) {
             // set error message
             header('Location: /~polaznik13/user/login');
             return;
         }
-
         $this->auth->login($user);
         header('Location: /~polaznik13/');
     }
@@ -112,14 +113,19 @@ class UserController extends AbstractController
     public function accountAction()
     {
         if($this->auth->isLoggedIn()){
-            return $this->view->render('account');
+            return $this->view->render('account',['movie_watchlist'=>Watchlist::getMultiple('user_id',$this->auth->getCurrentUser()->getId())]);
         }
     }
     public function changeAction()
     {
         if($this->auth->isLoggedIn())
         {
-            User::change('pass',$_POST['id'],password_hash($_POST['new_pass'], PASSWORD_DEFAULT));
+            if($_POST['new_pass']==$_POST['confirm_new_pass'])
+            {
+                User::change('pass',$_POST['id'],password_hash($_POST['new_pass'], PASSWORD_DEFAULT));
+                header('Location: /~polaznik13/');
+                return;
+            }
         }
     }
 }

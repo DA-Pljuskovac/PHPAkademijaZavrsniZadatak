@@ -34,30 +34,36 @@
 <?php endforeach; ?>
 </div>
     <br>
-<h2 class="subtitle has-text-primary-light has-background-dark">Reviews:</h2>
-<?php foreach ($review as $reviews): ?>
-            <div class="section">
-                <div class="container ">
-                    <h1><?= $reviews->getRev_name() ?></h1><br>
-                    <p><?= $reviews->getRev_content() ?></p>
-                    <p>Review score: <?= $reviews->getRev_score() ?></p>
-                    <?php if ($currentUser): ?>
-                    <form method="post" action="/~polaznik13/up">
-                        <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>" >
-                    <input class="button" type="submit" name="id" value="<?= $reviews->getRev_id() ?>">
-                    </form>
-                    <form method="post" action="/~polaznik13/down">
-                        <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>" >
-                        <input class="button" type="submit" name="id" value="<?= $reviews->getRev_id() ?>">
-                    </form>
-                    <?php endif; ?>
-                    <p>Score: <?= $reviews->getRev_up()- abs($reviews->getRev_down()) ?></p>
-                </div>
-            </div>
-<?php endforeach; ?>
+    <?php if($currentUser): ?>
+    <form method="post" action="addTo">
+        <input type="hidden" name="mov_title" value="<?= $movie->getMov_title() ?>">
+        <input type="hidden" name="mov_id" value="<?= $movie->getMov_id() ?>">
+        <input type="hidden" name="id" value="<?= $currentUser->getId() ?>">
+        <input class="button is-primary" type="submit" value="Add to watchlist" >
+    </form>
+    <?php endif; ?>
+<div class="columns">
+    <div class="column">
+    <h2 class="subtitle has-text-primary-light has-background-dark">User reviews:</h2>
 
+<?php foreach ($review as $reviews): ?>
+            <?php if ($reviews->getUser_type()==1): ?>
+            <?php include_once 'userreview.phtml';?>
+            <?php endif; ?>
+<?php endforeach; ?>
+    </div>
+<div class="column">
+    <h2 class="subtitle has-text-primary-light has-background-dark">Reviewer reviews:</h2>
+
+<?php foreach ($review as $reviews): ?>
+    <?php if ($reviews->getUser_type()==2): ?>
+        <?php include_once 'reviewerreview.phtml';?>
+    <?php endif; ?>
+<?php endforeach; ?>
+</div>
+</div>
 <?php if ($currentUser): ?>
-        <form method="post" action="/~polaznik13/create">
+        <form method="post" action="create">
             <div class="field">
                 <label class="label" for="new_review">What did you think of the movie</label>
                 <textarea class="textarea" id="new_review" name="new_review" rows="3"></textarea>
@@ -72,8 +78,8 @@
                 <label for="review_rating">4</label>
                 <input type="radio" id="4" name="review_rating" value="4">
                 <label for="review_rating">5</label>
-                <input type="radio" id="5" name="review_rating" value="5"><br>
-                <button type="submit" class="btn btn-primary">Review</button>
+                <input class="radio" type="radio" id="5" name="review_rating" value="5"><br>
+                <button type="submit" class="button is-primary">Review</button>
             </div>
         </form>
 <?php endif; ?>
