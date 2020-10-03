@@ -1,7 +1,7 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <div class="navbar-start">
-            <p class="navbar-item" href="/~polaznik13/"><b>Movie Review</b></p>
+            <a class="navbar-item" href="/~polaznik13/"><b>Movie Review</b></a>
             <form class="navbar-item" action="/~polaznik13/search" method="post">
                 <input class="navbar-item" type="number" name="search" id="search" placeholder="Search movie by year">
                 <button class="navbar-item button" type="submit"><i class="fas fa-search"></i></button>
@@ -11,11 +11,11 @@
     <div class="navbar-menu">
             <div class="navbar-end">
             <?php if ($currentUser === null): ?>
-                <a class="navbar-item " href="/user/login">Login</a>
-                <a class="navbar-item" href="/user/register">Register</a>
+                <a class="navbar-item " href="/~polaznik13/user/login">Login</a>
+                <a class="navbar-item" href="/~polaznik13/user/register">Register</a>
             <?php else: ?>
-                <a class="navbar-item" href="/user/logout">Logout</a>
-                <a class="navbar-item " href="/user/account">Account</a>
+                <a class="navbar-item" href="/~polaznik13/user/logout">Logout</a>
+                <a class="navbar-item " href="/~polaznik13/user/account">Account</a>
             <?php endif; ?>
             </div>
     </div>
