@@ -16,8 +16,8 @@
         <p>Release date: <?=$movie->getMov_year() ?>  </p>
         <p>Movie length: <?=$movie->getMov_time() ?> min </p>
     </div>
-    <p class="subtitle has-text-primary-light has-background-dark">Directors:</p>
-<div class="columns">
+<p class="subtitle has-text-primary-light has-background-dark">Directors:</p>
+<div class="columns" style="overflow-x:auto">
     <?php foreach ($director as $dir): ?>
         <div class="column is-narrow ">
             <p><strong><?= $dir->getDir_fname() ?>  <?= $dir->getDir_lname() ?></strong></p>
