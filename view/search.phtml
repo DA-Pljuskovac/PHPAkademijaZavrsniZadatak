@@ -1,17 +1,15 @@
 <?php include 'layout/header.phtml' ?>
 <h1 class="title">The search results for <?=$_POST['search'] ?></h1>
+    <div class="columns is-multiline">
+    <div class="columns ">
 <?php foreach ($movie as $post): ?>
-    <div class="block">
-        <div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body ">
-                    <img src="/images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
-                    <a href="/~polaznik13/review/details?id=<?= $post->getMov_id() ?>" class="card-link">
-                        <p><?= htmlspecialchars($post->getMov_title()) ?></p>
-                    </a>
-                    <p><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
-                </div>
-            </div>
+    <div class="column is-narrow">
+        <div class="box is-dark">
+            <a href="/~polaznik13/review/details?id=<?= $post->getMov_id() ?>" class="card-link">
+                <img src="/~polaznik13/images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
+                <p class="subtitle"><?= htmlspecialchars($post->getMov_title()) ?></p>
+            </a>
+            <p><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
         </div>
     </div>
 <?php endforeach; ?>

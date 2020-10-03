@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Model\Post;
 use App\Model\Review;
+use App\Model\Search;
 class HomeController extends AbstractController
 {
     public function indexAction()

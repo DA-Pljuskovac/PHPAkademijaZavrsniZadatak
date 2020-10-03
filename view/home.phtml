@@ -1,25 +1,48 @@
 <?php include 'layout/header.phtml' ?>
-
-<hr>
-<div class="columns">
-    <div class="column is-one-fifth">
-    </div>
-    <div class="column">
-<?php foreach ($movie as $post): ?>
-    <div class="block">
-        <div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body ">
-                    <img src="images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
-                    <a href="/~polaznik13/review/details?id=<?= $post->getMov_id() ?>" class="card-link">
-                        <p><?= htmlspecialchars($post->getMov_title()) ?></p>
+<section class="hero is-light">
+<div class="hero-body">
+    <div class="container">
+        <h1 class="title">Movies released this year</h1>
+<div class="columns is-multiline">
+    <div class="columns ">
+    <?php foreach ($movie as $post): ?>
+    <?php if($post->getMov_year()==2020): ?>
+        <div class="column is-narrow">
+                <div class="box is-dark">
+                    <a href="/~polaznik13//review/details?id=<?= $post->getMov_id() ?>" class="card-link">
+                        <img src="/images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
+                        <p class="subtitle"><?= htmlspecialchars($post->getMov_title()) ?></p>
                     </a>
-                    <p"><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
+                    <p><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
                 </div>
+        </div>
+    <?php endif; ?>
+    <?php endforeach; ?>
+    </div>
+</div>
+</div>
+</section>
+<section class="hero is-light">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">All movies</h1>
+    <div class="columns is-multiline">
+<?php foreach ($movie as $post): ?>
+    <div class="column is-narrow">
+        <div>
+            <div class="box">
+                <a href="/~polaznik13/review/details?id=<?= $post->getMov_id() ?>" class="card-link">
+                    <img src="/~polaznik13/images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
+
+                        <p class="subtitle"><?= htmlspecialchars($post->getMov_title()) ?></p>
+                    </a>
+                    <p><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
             </div>
         </div>
     </div>
 <?php endforeach; ?>
     </div>
 </div>
+    </div>
+</section>
 <?php include 'layout/footer.phtml' ?>

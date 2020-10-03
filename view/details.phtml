@@ -1,6 +1,14 @@
 <?php include 'layout/header.phtml' ?>
-    <div>
+    <div class="">
         <h1 class="title"><?=$movie->getMov_title() ?>  </h1>
+        <?php if ($currentUser): ?>
+            <form method="post" action="/~polaznik13/addTo">
+                <input type="hidden" name="mov_title" value="<?= $movie->getMov_title() ?>">
+                <input type="hidden" name="mov_id" value="<?= $movie->getMov_id() ?>">
+                <input type="hidden" name="id" value="<?= $currentUser->getId() ?>">
+                <input class="button is-primary" type="submit" value="Add to watchlist" >
+            </form>
+        <?php endif; ?>
         <iframe width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="<?=$movie->getMov_trailer() ?>"></iframe>
         <h2 class="subtitle">Movie description:</h2>
         <p><?=$movie->getMov_desc() ?></p>
@@ -20,7 +28,7 @@
 <div class="columns">
     <?php foreach ($movie_genres as $gen): ?>
         <div class="column is-narrow ">
-            <p><strong><?= $gen->getGenre() ?></strong></p>
+            <span class="tag is-medium"><strong><?= $gen->getGenre() ?></strong></span>
         </div>
     <?php endforeach; ?>
 </div>
@@ -28,24 +36,18 @@
 <div class="columns">
 <?php foreach ($actor as $cast): ?>
         <div class="column is-narrow ">
-                <p><strong><?= $cast->getAct_fname() ?>  <?= $cast->getAct_lname() ?></strong></p>
+            <div class="box">
+                <p class="subtitle"><strong><?= $cast->getAct_fname() ?>  <?= $cast->getAct_lname() ?></strong></p>
                 <p><?= $cast->getRole() ?></p>
+            </div>
         </div>
 <?php endforeach; ?>
 </div>
     <br>
-    <?php if($currentUser): ?>
-    <form method="post" action="addTo">
-        <input type="hidden" name="mov_title" value="<?= $movie->getMov_title() ?>">
-        <input type="hidden" name="mov_id" value="<?= $movie->getMov_id() ?>">
-        <input type="hidden" name="id" value="<?= $currentUser->getId() ?>">
-        <input class="button is-primary" type="submit" value="Add to watchlist" >
-    </form>
-    <?php endif; ?>
+
 <div class="columns">
     <div class="column">
     <h2 class="subtitle has-text-primary-light has-background-dark">User reviews:</h2>
-
 <?php foreach ($review as $reviews): ?>
             <?php if ($reviews->getUser_type()==1): ?>
             <?php include_once 'userreview.phtml';?>
@@ -63,14 +65,14 @@
 </div>
 </div>
 <?php if ($currentUser): ?>
-        <form method="post" action="create">
+        <form method="post" action="/~polaznik13/create">
             <div class="field">
                 <label class="label" for="new_review">What did you think of the movie</label>
                 <textarea class="textarea" id="new_review" name="new_review" rows="3"></textarea>
                 <input class="hidden" type="hidden"  id="mov_id" name="mov_id" value="<?= $movie->getMov_id() ?>">
                 <p class="label">Score: </p>
                 <label for="review_rating">1</label>
-                <input  type="radio" id="1" name="review_rating" value="1">
+                <input  type="radio" id="1" name="review_rating" value="1" required>
                 <label for="review_rating">2</label>
                 <input type="radio" id="2" name="review_rating" value="2">
                 <label for="review_rating">3</label>

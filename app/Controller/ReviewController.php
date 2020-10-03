@@ -76,7 +76,13 @@ class ReviewController extends AbstractController
             header('Location: /~polaznik13/');
             return;
         }
-        return $this->view->render('details',['movie'=>Post::getOne('mov_id',$postId),'review'=>Review::getMultiple('rev_mov_id',$postId),'actor'=>Moviecast::getMultiple('mov_id',$postId),'director'=>Director::getMultiple('mov_id',$postId),'movie_genres'=>Genres::getMultiple('mov_id',$postId),'has_voted'=>Voted::getMultiple('mov_id',$postId)]);
+        return $this->view->render('details',[
+            'movie'=>Post::getOne('mov_id',$postId),
+            'review'=>Review::getMultiple('rev_mov_id',$postId),
+            'actor'=>Moviecast::getMultiple('mov_id',$postId),
+            'director'=>Director::getMultiple('mov_id',$postId),
+            'movie_genres'=>Genres::getMultiple('mov_id',$postId),
+            'has_voted'=>Voted::getMultiple('mov_id',$postId)]);
     }
     public function upAction()
     {

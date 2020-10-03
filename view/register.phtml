@@ -1,13 +1,15 @@
 <?php include 'layout/header.phtml' ?>
-
+<div class="field is-grouped is-grouped-centered">
 <form method="post" action="/~polaznik13/user/registerSubmit">
-    <div class="field">
         <label class="label" for="first_name">First Name</label>
         <input class="input" type="text" class="form-control" id="first_name" name="first_name">
         <label class="label" for="last_name">Last Name</label>
         <input class="input" type="text" class="form-control" id="last_name" name="last_name">
         <label class="label" for="email">Email</label>
         <input class="input" type="email" class="form-control" id="email" name="email">
+        <span>
+
+        </span>
         <label class="label" for="password">Password</label>
         <input class="input" type="password" class="form-control" id="password" name="password">
         <label class="label" for="confirm_password">Confirm Password</label>
@@ -20,6 +22,6 @@
         <input type="radio" class="radio" id="user_type" name="user_type" value="2">
         </label><br>
     <button type="submit" class="button is-primary">Register</button>
-    </div>
 </form>
+</div>
 <?php include 'layout/footer.phtml' ?>

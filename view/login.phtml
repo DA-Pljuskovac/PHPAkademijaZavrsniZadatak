@@ -1,13 +1,11 @@
 <?php include 'layout/header.phtml' ?>
-
+<div class="field is-grouped is-grouped-centered">
 <form method="post" action="/~polaznik13/user/loginSubmit">
-    <div class="field">
         <label class="label" for="email" required>Email</label>
         <input class="input" type="email" class="form-control" id="email" name="email">
         <label class="label" for="password">Password</label>
         <input class="input" type="password" class="form-control" id="password" name="password">
-    </div>
     <button type="submit" class="button is-primary">Login</button>
 </form>
-
+</div>
 <?php include 'layout/footer.phtml' ?>
