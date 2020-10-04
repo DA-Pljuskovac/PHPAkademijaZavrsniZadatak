@@ -1,11 +1,21 @@
 <?php include 'layout/header.phtml' ?>
 <div class="field is-grouped is-grouped-centered">
-<form method="post" action="/~polaznik13/user/loginSubmit">
-        <label class="label" for="email" required>Email</label>
-        <input class="input" type="email" class="form-control" id="email" name="email">
+<form style="border-radius: 25px; border: solid dodgerblue; padding: 15px;" method="post" action="/~polaznik13/user/loginSubmit">
+        <label class="label" for="email" >Email</label>
+        <div class="control has-icons-left has-icons-right">
+        <input class="input" type="email" class="form-control" id="email" name="email" required>
+        <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+        </span>
+        </div>
         <label class="label" for="password">Password</label>
-        <input class="input" type="password" class="form-control" id="password" name="password">
-    <button type="submit" class="button is-primary my-2">Login</button>
+        <div class="control has-icons-left has-icons-right">
+        <input class="input" type="password" class="form-control" id="password" name="password" required>
+        <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+        </span>
+        </div>
+    <button type="submit" class="button is-link my-2">Login</button>
 </form>
 </div>
 <?php include 'layout/footer.phtml' ?>
