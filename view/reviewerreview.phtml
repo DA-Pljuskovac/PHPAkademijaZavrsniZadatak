@@ -17,6 +17,7 @@
             <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>" >
             <input type="hidden" name="id" value="<?= $reviews->getRev_id() ?>" >
             <input class="button" type="submit" value="Downvote">
+        </form>
         <?php endif; ?>
         <p>Score: <?= $reviews->getRev_up()- abs($reviews->getRev_down()) ?></p>
     </div>
