@@ -18,7 +18,7 @@ class BrowseController extends AbstractController
     public function pageAction()
     {
         $postId=$_GET['id'];
-        $total_records_per_page=3;
+        $total_records_per_page=$_GET['num'];
         if ($postId==1)
         {
             return $this->view->render('page',[
@@ -27,7 +27,7 @@ class BrowseController extends AbstractController
         } else
         {
             return $this->view->render('page',[
-                'movie'=> Post::getAll('mov_id',[3*($postId-1),$total_records_per_page])
+                'movie'=> Post::getAll('mov_id',[$total_records_per_page*($postId-1),$total_records_per_page])
             ]);
         }
     }

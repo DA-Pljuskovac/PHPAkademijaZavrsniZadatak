@@ -10,7 +10,10 @@ $result_count=mysqli_query(
     $con,
     "SELECT COUNT(mov_id) As total FROM movie"
 );
-$total_records_per_page=3;
+if (isset($_GET['num']) && $_GET['num']!=""){
+    $total_records_per_page=$_GET['num'];
+}
+
 $total_records=mysqli_fetch_array($result_count);
 $total_records=$total_records['total'];
 $total_no_of_pages=ceil($total_records/$total_records_per_page);
@@ -20,18 +23,26 @@ $next_page=$page_no+1;
 $second_last=$total_no_of_pages-1;
 $adjacents="1";
 ?>
-<div>
-    <strong><?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-</div>
+<nav class="breadcrumb is-right" aria-label="breadcrumbs">
+    <ul>
+        <div class="">
+            <p>Number of movies per page:</p>
+        </div>
+
+        <li><a href='/~polaznik13/browse/page?id=1&num=3'>3</a></li>
+        <li><a href='/~polaznik13/browse/page?id=1&num=5'>5</a></li>
+        <li><a href='/~polaznik13/browse/page?id=1&num=10'>10</a></li>
+    </ul>
+</nav>
 <nav class="pagination is-centered">
 
 <ul class="pagination-list">
     <?php if($page_no>1){
-        echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1'>First Page</a></li>";
+        echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1&num=$total_records_per_page'>First Page</a></li>";
     } ?>
     <li <?php if($page_no <= 1){} ?>>
         <a class="pagination-link" <?php if ($page_no>1){
-            echo "href='/~polaznik13/browse/page?id=$previous_page'";
+            echo "href='/~polaznik13/browse/page?id=$previous_page&num=$total_records_per_page'";
         } ?>> Previous</a>
     </li>
     <?php if ($total_no_of_pages <=10){
@@ -40,7 +51,7 @@ $adjacents="1";
             {
                 echo "<li class='active'><a class='pagination-link'>$counter</a></li>";
             }else{
-                echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter'>$counter</a></li>";
+                echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter&num=$total_records_per_page'>$counter</a></li>";
             }
         }
     } elseif ($total_no_of_pages>10){
@@ -49,33 +60,33 @@ $adjacents="1";
                 if ($counter==$page_no){
                     echo "<li ><a class='pagination-link'>$counter</a></li>";
                 }else{
-                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter'>$counter</a></li>";
+                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter&num=$total_records_per_page'>$counter</a></li>";
                 }
             }
             echo "<li><a class='pagination-link'>...</a>";
-            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages'>$total_no_of_pages</a></li>";
+            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages&num=$total_records_per_page'>$total_no_of_pages</a></li>";
         }elseif($page_no>4 && $page_no < $total_no_of_pages -4){
-            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1'>1</a></li>";
+            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1&num=$total_records_per_page'>1</a></li>";
             echo "<li><a class='pagination-link'>...</a></li>";
             for ($counter=$page_no-$adjacents;$counter<=$page_no+$adjacents;$counter++){
                 if ($counter==$page_no){
                     echo "<li class='pagination-link'><a>$counter</a></li>";
                 }else
                 {
-                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter'>$counter</a></li>";
+                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter&num=$total_records_per_page'>$counter</a></li>";
                 }
             }
             echo "<li><a class='pagination-link'>...</a>";
-            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages'>$total_no_of_pages</a></li>";
+            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages&num=$total_records_per_page'>$total_no_of_pages</a></li>";
         } else {
-            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1'>1</a></li>";
+            echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=1&num=$total_records_per_page'>1</a></li>";
             echo "<li><a class='pagination-link'>...</a></li>";
             for ($counter=$total_no_of_pages-6;$counter<=$total_no_of_pages;$counter++)
             {
                 if ($counter==$page_no){
                     echo "<li><a class='pagination-link'>$counter</a></li>";
                 }else{
-                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter'>$counter</a></li>";
+                    echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$counter&num=$total_records_per_page'>$counter</a></li>";
                 }
             }
         }
@@ -83,11 +94,11 @@ $adjacents="1";
     ?>
     <li <?php if($page_no >= $total_no_of_pages){echo "";} ?>>
         <a class='pagination-link' <?php if ($page_no<$total_no_of_pages){
-            echo "href='/~polaznik13/browse/page?id=$next_page'";
+            echo "href='/~polaznik13/browse/page?id=$next_page&num=$total_records_per_page'";
         } ?>> Next</a>
     </li>
     <?php if ($page_no<$total_no_of_pages){
-        echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages'>Last</a></li>";
+        echo "<li><a class='pagination-link' href='/~polaznik13/browse/page?id=$total_no_of_pages&num=$total_records_per_page'>Last</a></li>";
     }?>
 </ul>
 </nav>
