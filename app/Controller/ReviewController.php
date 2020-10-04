@@ -44,12 +44,6 @@ class ReviewController extends AbstractController
             'user_type'=>$this->auth->getCurrentUser()->getUser_type(),
             'user_id'=>$this->auth->getCurrentUser()->getId()
         ]);
-        Voted::insert([
-            'rev_id'=>$_POST['rev_id'],
-            'user_id'=>$this->auth->getCurrentUser()->getId(),
-            'mov_id'=>$_POST['mov_id'],
-            'voted'=>1
-        ]);
         header("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
 
