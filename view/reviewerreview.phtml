@@ -7,13 +7,13 @@
         <a href="/~polaznik13/review/delete?id=<?=$reviews->getRev_id() ?>">Delete</a>
         <?php endif; ?>
         <?php if ($currentUser && $currentUser->getId()!=$reviews->getUser_id()): ?>
-        <form method="post" action="/~polaznik13/up">
+        <form method="post" action="/~polaznik13/review/up">
             <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>">
             <input type="hidden" name="id" value="<?= $reviews->getRev_id() ?>">
             <input class="button" type="submit" value="Upvote">
         </form>
 
-        <form method="post" action="/~polaznik13/down">
+        <form method="post" action="/~polaznik13/review/down">
             <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>" >
             <input type="hidden" name="id" value="<?= $reviews->getRev_id() ?>" >
             <input class="button" type="submit" value="Downvote">
