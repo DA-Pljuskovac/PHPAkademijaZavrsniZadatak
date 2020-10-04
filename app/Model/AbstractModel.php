@@ -149,4 +149,28 @@ abstract class AbstractModel extends DataObject
         $statement->bindValue('value', $value);
         $statement->execute();
     }
+    public static function search(string $column, $value, string $orderBy = null, array $limit = []): array
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} WHERE {$column} LIKE '{$value}%'";
+
+        if ($orderBy) {
+            $sql .= " ORDER BY {$orderBy}";
+        }
+
+        if ($limit) {
+            $sql .= " LIMIT {$limit[0]}, {$limit[1]}";
+        }
+
+        $statement = Database::getInstance()->prepare($sql);
+        $statement->bindValue('value', $value);
+        $statement->execute();
+
+        $models = [];
+        while ($row = $statement->fetch()) {
+            $models[] = static::createObject($row);
+        }
+
+        return $models;
+    }
 }

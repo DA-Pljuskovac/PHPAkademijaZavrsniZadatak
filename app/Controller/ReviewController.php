@@ -63,7 +63,7 @@ class ReviewController extends AbstractController
 
         $post = Review::getOne('rev_id', $postId);
 
-        if ($post->getUser_id() == $this->auth->getCurrentUser()->getId()) {
+        if (($post->getUser_id() == $this->auth->getCurrentUser()->getId()) || $this->auth->getCurrentUser()->getUser_type()==3) {
             Review::delete('rev_id', $postId);
         }
 
@@ -132,7 +132,7 @@ class ReviewController extends AbstractController
 
         $post = Watchlist::getOne('mov_id', $postId);
 
-        if ($post->getUser_id() == $this->auth->getCurrentUser()->getId()) {
+        if (($post->getUser_id() == $this->auth->getCurrentUser()->getId())) {
             Watchlist::delete('mov_id', $postId);
         }
 

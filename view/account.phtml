@@ -8,16 +8,19 @@
 <div class="columns is-multiple">
 <?php foreach ($movie_watchlist as $watchlist): ?>
     <div class="column is-narrow">
+        <div class="box">
+            <a href="/~polaznik13/review/details?id=<?= $watchlist->getMov_id() ?>">
     <img src="/~polaznik13/images/<?=$watchlist->getMov_id()?>.jpg" width="90" height="134">
-    <a href="/~polaznik13/review/details?id=<?= $watchlist->getMov_id() ?>">
+
     <p><?= $watchlist->getMov_title() ?></p>
     </a>
     <a href="/~polaznik13/review/deleteFrom?id=<?= $watchlist->getMov_id() ?>">Delete</a>
+        </div>
     </div>
 <?php endforeach; ?>
 </div>
 <div class="field is-grouped is-grouped-left">
-    <form action="/~polaznik13/change" method="post">
+    <form action="change" method="/~polaznik13/post">
         <label class="label" for="pass">Enter your password: </label>
         <input class="input" type="password" id="pass" name="pass" required>
         <label class="label" for="new_pass">Enter your new password: </label>
@@ -25,7 +28,7 @@
         <label class="label" for="confirm_new_pass">Confirm your new password: </label>
         <input class="input" type="password" id="confirm_new_pass" name="confirm_new_pass" required>
         <input type="hidden" value="<?=$currentUser->getId() ?>" name="id">
-        <input class="button is-info" type="submit" value="Update">
+        <input class="button is-info my-2" type="submit" value="Update">
     </form>
 </div>
 <?php include 'layout/footer.phtml' ?>

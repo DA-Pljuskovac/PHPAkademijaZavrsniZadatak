@@ -1,0 +1,20 @@
+<?php include 'layout/header.phtml' ?>
+<?php include 'layout/pagination.phtml' ?>
+<div class="columns is-multiline">
+    <div class="columns ">
+        <?php foreach ($movie as $post): ?>
+            <div class="column is-narrow">
+                <div class="box is-dark">
+                    <a href="/~polaznik13/review/details?id=<?= $post->getMov_id() ?>" class="card-link">
+                        <img src="/~polaznik13/images/<?=$post->getMov_id()?>.jpg" width="180" height="268">
+                        <p class="subtitle"><?= htmlspecialchars($post->getMov_title()) ?></p>
+                    </a>
+                    <p><?= htmlspecialchars($post->getMov_dt_rel()) ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+
+<?php include 'layout/footer.phtml' ?>

@@ -2,11 +2,11 @@
     <div class="">
         <h1 class="title"><?=$movie->getMov_title() ?>  </h1>
         <?php if ($currentUser): ?>
-            <form method="post" action="/~polaznik13/addTo">
+            <form method="post" action="addTo">
                 <input type="hidden" name="mov_title" value="<?= $movie->getMov_title() ?>">
                 <input type="hidden" name="mov_id" value="<?= $movie->getMov_id() ?>">
                 <input type="hidden" name="id" value="<?= $currentUser->getId() ?>">
-                <input class="button is-primary" type="submit" value="Add to watchlist" >
+                <input class="button is-primary my-2" type="submit" value="Add to watchlist" >
             </form>
         <?php endif; ?>
         <iframe width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="<?=$movie->getMov_trailer() ?>"></iframe>
@@ -16,14 +16,18 @@
         <p>Release date: <?=$movie->getMov_year() ?>  </p>
         <p>Movie length: <?=$movie->getMov_time() ?> min </p>
     </div>
-<p class="subtitle has-text-primary-light has-background-dark">Directors:</p>
-<div class="columns" style="overflow-x:auto">
+
+
+    <p class="subtitle has-text-primary-light has-background-dark">Directors:</p>
+<div class="columns">
     <?php foreach ($director as $dir): ?>
         <div class="column is-narrow ">
             <p><strong><?= $dir->getDir_fname() ?>  <?= $dir->getDir_lname() ?></strong></p>
         </div>
     <?php endforeach; ?>
 </div>
+
+
 <p class="subtitle has-text-primary-light has-background-dark">Genres:</p>
 <div class="columns">
     <?php foreach ($movie_genres as $gen): ?>
@@ -32,8 +36,10 @@
         </div>
     <?php endforeach; ?>
 </div>
+
+
     <p class="subtitle has-text-primary-light has-background-dark">Actors and roles: </p>
-<div class="columns" style="overflow-x:auto">
+<div class="columns" style="overflow-x:auto ">
 <?php foreach ($actor as $cast): ?>
         <div class="column is-narrow ">
             <div class="box">
@@ -45,7 +51,7 @@
 </div>
     <br>
 
-<div class="columns">
+<div class="columns" style="overflow-y: auto">
     <div class="column">
     <h2 class="subtitle has-text-primary-light has-background-dark">User reviews:</h2>
 <?php foreach ($review as $reviews): ?>

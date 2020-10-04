@@ -82,7 +82,7 @@ class UserController extends AbstractController
 
         $user = User::getOne('email', $_POST['email']);
 
-        if (!$user->getId() || !password_verify($_POST['password'], $user->getPassword())) {
+        if (!$user->getId() || !password_verify($_POST['password'], $user->getPassword()) || !$user->getUser_type()==3) {
             // set error message
             header('Location: /~polaznik13/user/login');
             return;

@@ -11,7 +11,7 @@ class SearchController extends AbstractController
     public function indexAction()
     {
         return $this->view->render('search', [
-            'movie' => Search::getMultiple('mov_year',$_POST['search'])
+            'movie' => Search::search('mov_title',$_POST['search'],'mov_dt_rel',[0,10])
         ]);
     }
 }

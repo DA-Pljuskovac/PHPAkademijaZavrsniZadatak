@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     public function indexAction()
     {
         return $this->view->render('home', [
-            'movie' => Post::getAll('mov_dt_rel')
+            'movie' => Post::getAll('mov_dt_rel',[0,10])
         ]);
     }
 }
