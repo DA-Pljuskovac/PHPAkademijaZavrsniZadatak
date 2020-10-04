@@ -82,6 +82,7 @@ class ReviewController extends AbstractController
             'actor'=>Moviecast::getMultiple('mov_id',$postId),
             'director'=>Director::getMultiple('mov_id',$postId),
             'movie_genres'=>Genres::getMultiple('mov_id',$postId),
+            'movie_watchlist'=>Watchlist::getOne('mov_id',$postId),
             'has_voted'=>Voted::getMultiple('mov_id',$postId)]);
     }
     public function upAction()

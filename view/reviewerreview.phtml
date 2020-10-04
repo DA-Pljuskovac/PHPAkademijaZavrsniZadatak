@@ -3,10 +3,10 @@
         <h1 class=""><?= $reviews->getRev_name() ?></h1><br>
         <p><?= $reviews->getRev_content() ?></p>
         <p>Review score: <?= $reviews->getRev_score() ?></p>
-        <?php if ($currentUser && $currentUser->getId()==$reviews->getUser_id()): ?>
+        <?php if (($currentUser && $currentUser->getId()==$reviews->getUser_id()) || $currentUser->getUser_type()==3): ?>
         <a href="/~polaznik13/review/delete?id=<?=$reviews->getRev_id() ?>">Delete</a>
         <?php endif; ?>
-        <?php if ($currentUser): ?>
+        <?php if ($currentUser && $currentUser->getId()!=$reviews->getUser_id()): ?>
         <form method="post" action="/~polaznik13/up">
             <input type="hidden" name="mov_id" value="<?= $reviews->getRev_mov_id() ?>">
             <input type="hidden" name="id" value="<?= $reviews->getRev_id() ?>">

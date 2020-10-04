@@ -1,7 +1,7 @@
 <?php include 'layout/header.phtml' ?>
     <div class="">
         <h1 class="title"><?=$movie->getMov_title() ?>  </h1>
-        <?php if ($currentUser): ?>
+        <?php if ($currentUser && $currentUser->getId()!=$movie_watchlist->getUser_id()): ?>
             <form method="post" action="addTo">
                 <input type="hidden" name="mov_title" value="<?= $movie->getMov_title() ?>">
                 <input type="hidden" name="mov_id" value="<?= $movie->getMov_id() ?>">
