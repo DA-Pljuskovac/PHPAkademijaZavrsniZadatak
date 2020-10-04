@@ -87,8 +87,6 @@ class ReviewController extends AbstractController
             return;
         }
         Up::up('rev_up',$postId,1);
-        Voted::change('voted',$postId,1);
-        Voted::change('rev_id',$postId,$_POST['rev_id']);
         header ("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
     public function downAction()
@@ -99,8 +97,6 @@ class ReviewController extends AbstractController
             return;
         }
         Down::down('rev_down',$postId,1);
-        Voted::change('voted',$postId,2);
-        Voted::change('rev_id',$postId,$_POST['rev_id']);
         header ("Location: /~polaznik13/review/details?id={$_POST['mov_id']}");
     }
     public function addToAction()
