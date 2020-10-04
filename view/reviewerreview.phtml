@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-content">
-        <h1 class="subtitle"><?= $reviews->getRev_name() ?></h1><br>
+        <h1 class="subtitle"><?= $reviews->getRev_name() ?></h1>
         <p><?= $reviews->getRev_content() ?></p>
         <p>Review score: <?= $reviews->getRev_score() ?></p>
         <?php if (($currentUser && $currentUser->getId()==$reviews->getUser_id())): ?>
